@@ -21,11 +21,13 @@ def calculate_statistics():
     print(f'Number of rejected: {len(df_rejected)}, per cent: {(len(df_rejected) / all_items_number) * 100:.0f}')
 
     df_interviewed = df.query(f'Status != ["not answered", "rejected"]')
+    df_interviewed['Waiting time'] = df_interviewed['Contact back'] - df_interviewed['Date of application']
     print(f'Number of invitations to the first interview round: {len(df_interviewed)}, '
           f'per cent: {(len(df_interviewed) / all_items_number) * 100:.0f}')
+    print(f'Average waiting time for feedback after application (invitation for the interview): {df_interviewed["Waiting time"].mean().days}')
 
     df_rejected['Waiting time'] = df_rejected['Contact back'] - df_rejected['Date of application']
-    print(f'Average waiting time to get rejection: {df_rejected["Waiting time"].mean().days}')
+    print(f'Average waiting time for feedback after application (rejection): {df_rejected["Waiting time"].mean().days}')
 
 
 if __name__ == '__main__':
