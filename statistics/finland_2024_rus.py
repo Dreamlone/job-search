@@ -50,7 +50,7 @@ def calculate_statistics():
     axs[1].set_ylabel('Статус', fontsize=15)
     axs[1].grid()
 
-    plt.suptitle(f'Количество поданных заявки: {len(df)}')
+    plt.suptitle(f'Количество поданных заявок: {len(df)}')
     fig.savefig(Path('.', 'finland_2024_rus.png'), dpi=300, bbox_inches='tight')
     plt.close()
 
