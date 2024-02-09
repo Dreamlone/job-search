@@ -2,7 +2,8 @@ from pathlib import Path
 
 import warnings
 
-import numpy as np
+import matplotlib.pyplot as plt
+
 import pandas as pd
 warnings.filterwarnings('ignore')
 
@@ -28,6 +29,30 @@ def calculate_statistics():
 
     df_rejected['Waiting time'] = df_rejected['Contact back'] - df_rejected['Date of application']
     print(f'Average waiting time for feedback after application (rejection): {df_rejected["Waiting time"].mean().days}')
+
+    # Prepare visualization
+    labels = ['not\n answered', 'rejected before\n interview', 'got interview']
+    sizes = [34, 61, 5]
+    explode = (0, 0.0, 0.2)
+
+    fig_size = (14.0, 4.0)
+    fig, axs = plt.subplots(1, 2, figsize=fig_size,
+                            gridspec_kw={'width_ratios': [1, 2], 'wspace': 1.0})
+
+    axs[0].pie(sizes, explode=explode, labels=labels, autopct='%1.0f%%',
+               shadow=False, startangle=90, colors=['gold', 'tomato', 'cornflowerblue'],
+               textprops={'fontsize': 13}, radius=0.5)
+    axs[0].axis('equal')
+    axs[1].scatter(df_rejected['Date of application'], df_rejected['Status'], s=50, c='tomato', edgecolors={'black'})
+    axs[1].scatter(df_not_answered['Date of application'], df_not_answered['Status'], s=50, c='gold', edgecolors={'black'})
+    axs[1].scatter(df_interviewed['Date of application'], df_interviewed['Status'], s=50, c='cornflowerblue', edgecolors={'black'})
+    axs[1].set_xlabel('Datetime of the application', fontsize=15)
+    axs[1].set_ylabel('Status', fontsize=15)
+    axs[1].grid()
+
+    plt.suptitle(f'Number of processed applications: {len(df)}')
+    fig.savefig(Path('.', 'finland_2024_eng.png'), dpi=300, bbox_inches='tight')
+    plt.close()
 
 
 if __name__ == '__main__':
