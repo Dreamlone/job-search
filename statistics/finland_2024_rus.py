@@ -32,7 +32,7 @@ def calculate_statistics():
 
     # Prepare visualization
     labels = ['не ответили', 'отказали без приглашения\n на собеседование', 'пригласили на\n собеседование']
-    sizes = [34, 61, 5]
+    sizes = [32, 63, 5]
     explode = (0, 0.0, 0.2)
 
     fig_size = (14.0, 4.0)

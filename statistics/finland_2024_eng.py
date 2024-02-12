@@ -32,7 +32,7 @@ def calculate_statistics():
 
     # Prepare visualization
     labels = ['not\n answered', 'rejected before\n interview', 'got interview']
-    sizes = [34, 61, 5]
+    sizes = [32, 63, 5]
     explode = (0, 0.0, 0.2)
 
     fig_size = (14.0, 4.0)
